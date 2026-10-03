@@ -70,79 +70,88 @@ class KsuActivity : AppCompatActivity() {
         }
     }
 
-    private fun clear() { content.removeAllViews() }
+    private fun clear() {
+        content.removeAllViews()
+    }
 
-    private fun tv(txt: String, size: Float, color: Int = 0xFFE8F0F5.toInt()): TextView =
-        TextView(this).apply {
-            text = txt
-            textSize = size
-            setTextColor(color)
-            setPadding(0, 14, 0, 14)
-            includeFontPadding = false
-        }
+    private fun tv(txt: String, size: Float, color: Int = 0xFFE8F0F5.toInt()): TextView {
+        val t = TextView(this)
+        t.text = txt
+        t.textSize = size
+        t.setTextColor(color)
+        t.setPadding(0, 14, 0, 14)
+        t.includeFontPadding = false
+        return t
+    }
 
-    private fun createCard(glow: Boolean = false): LinearLayout {
-        val card = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(40, 40, 40, 40)
-            setBackgroundResource(if (glow) R.drawable.card_bg_glow else R.drawable.card_bg)
-            val lp = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            lp.setMargins(0, 8, 0, 8)
-            layoutParams = lp
-        }
+    private fun createCard(glow: Boolean): LinearLayout {
+        val card = LinearLayout(this)
+        card.orientation = LinearLayout.VERTICAL
+        card.setPadding(40, 40, 40, 40)
+        card.setBackgroundResource(if (glow) R.drawable.card_bg_glow else R.drawable.card_bg)
+        val lp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        lp.setMargins(0, 8, 0, 8)
+        card.layoutParams = lp
         return card
     }
 
     private fun showHome() {
         clear()
-        val card = createCard(glow = true)
-        val ring = TextView(this).apply {
-            text = "✓"
-            textSize = 36f
-            setTextColor(0xFF00FFC8.toInt())
-            gravity = Gravity.CENTER
-            setBackgroundResource(R.drawable.ring_ok)
-            val lp = LinearLayout.LayoutParams(100, 100).apply {
-                gravity = Gravity.CENTER_HORIZONTAL
-            }
-            layoutParams = lp
-        }
+        val card = createCard(true)
+        val ring = TextView(this)
+        ring.text = "✓"
+        ring.textSize = 36f
+        ring.setTextColor(0xFF00FFC8.toInt())
+        ring.gravity = Gravity.CENTER
+        ring.setBackgroundResource(R.drawable.ring_ok)
+        val lp = LinearLayout.LayoutParams(100, 100)
+        lp.gravity = Gravity.CENTER_HORIZONTAL
+        ring.layoutParams = lp
         card.addView(ring)
-        card.addView(tv("KernelSU 正在运行", 19f).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
-            typeface = Typeface.DEFAULT_BOLD
-            setPadding(0, 22, 0, 6)
-        })
-        card.addView(tv("已获得临时 Root 权限", 13f, 0xFF00FFC8.toInt()).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
-        })
+
+        val title = tv("KernelSU 正在运行", 19f)
+        title.gravity = Gravity.CENTER_HORIZONTAL
+        title.typeface = Typeface.DEFAULT_BOLD
+        title.setPadding(0, 22, 0, 6)
+        card.addView(title)
+
+        val sub = tv("已获得临时 Root 权限", 13f, 0xFF00FFC8.toInt())
+        sub.gravity = Gravity.CENTER_HORIZONTAL
+        card.addView(sub)
+
         content.addView(card)
 
-        content.addView(tv("设备信息", 11f, 0xFF5A6A78.toInt()).apply { setPadding(0, 20, 0, 4) })
-        val infoCard = createCard()
-        addRow(infoCard, "内核版本", "4.14.190-临时")
-        addRow(infoCard, "管理器版本", "v0.9.5 (11023)")
+        val secTitle = tv("设备信息", 11f, 0xFF5A6A78.toInt())
+        secTitle.setPadding(0, 20, 0, 4)
+        content.addView(secTitle)
+
+        val infoCard = createCard(false)
+        addRow(infoCard, "内核版本", "4.14.190-临时", 0xFFE8F0F5.toInt())
+        addRow(infoCard, "管理器版本", "v0.9.5 (11023)", 0xFFE8F0F5.toInt())
         addRow(infoCard, "工作模式", "KernelSU", 0xFF00FFC8.toInt())
-        addRow(infoCard, "SELinux", "Permissive")
-        addRow(infoCard, "已授权应用", "0")
+        addRow(infoCard, "SELinux", "Permissive", 0xFFE8F0F5.toInt())
+        addRow(infoCard, "已授权应用", "0", 0xFFE8F0F5.toInt())
         content.addView(infoCard)
 
-        content.addView(tv("运行状态", 11f, 0xFF5A6A78.toInt()).apply { setPadding(0, 20, 0, 4) })
-        val stCard = createCard()
+        val sec2 = tv("运行状态", 11f, 0xFF5A6A78.toInt())
+        sec2.setPadding(0, 20, 0, 4)
+        content.addView(sec2)
+
+        val stCard = createCard(false)
         addRow(stCard, "su 二进制", "已注入", 0xFF00FFC8.toInt())
         addRow(stCard, "/data/adb/ksu", "已挂载", 0xFF00FFC8.toInt())
         addRow(stCard, "Zygote", "已重启", 0xFF00FFC8.toInt())
         content.addView(stCard)
     }
 
-    private fun addRow(parent: LinearLayout, k: String, v: String, vColor: Int = 0xFFE8F0F5.toInt()) {
-        val row = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setPadding(0, 18, 0, 18)
-        }
+    private fun addRow(parent: LinearLayout, k: String, v: String, vColor: Int) {
+        val row = LinearLayout(this)
+        row.orientation = LinearLayout.HORIZONTAL
+        row.setPadding(0, 18, 0, 18)
+
         val kTv = tv(k, 13.5f, 0xFF7A8A99.toInt())
         kTv.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         row.addView(kTv)
@@ -152,40 +161,42 @@ class KsuActivity : AppCompatActivity() {
 
     private fun showSuperUser() {
         clear()
-        val card = createCard()
-        val ring = TextView(this).apply {
-            text = "!"
-            textSize = 36f
-            setTextColor(0xFFFF5A5A.toInt())
-            gravity = Gravity.CENTER
-            setBackgroundResource(R.drawable.ring_bad)
-            val lp = LinearLayout.LayoutParams(100, 100).apply {
-                gravity = Gravity.CENTER_HORIZONTAL
-            }
-            layoutParams = lp
-        }
+        val card = createCard(false)
+        val ring = TextView(this)
+        ring.text = "!"
+        ring.textSize = 36f
+        ring.setTextColor(0xFFFF5A5A.toInt())
+        ring.gravity = Gravity.CENTER
+        ring.setBackgroundResource(R.drawable.ring_bad)
+        val lp = LinearLayout.LayoutParams(100, 100)
+        lp.gravity = Gravity.CENTER_HORIZONTAL
+        ring.layoutParams = lp
         card.addView(ring)
-        card.addView(tv("超级用户服务未响应", 17f).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
-            typeface = Typeface.DEFAULT_BOLD
-            setPadding(0, 22, 0, 6)
-        })
-        card.addView(tv("无法连接到 KernelSU 守护进程\n请稍后重试或重启设备", 13f, 0xFF7A8A99.toInt()).apply {
-            gravity = Gravity.CENTER_HORIZONTAL
-            setLineSpacing(6f, 1f)
-        })
-        val btn = tv("重 试", 13f, 0xFF00FFC8.toInt()).apply {
-            gravity = Gravity.CENTER
-            setBackgroundResource(R.drawable.chip_bg)
-            setPadding(50, 22, 50, 22)
-            val lp = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { gravity = Gravity.CENTER_HORIZONTAL; topMargin = 26 }
-            layoutParams = lp
-            setOnClickListener {
-                Toast.makeText(this@KsuActivity, "连接超时，请稍后重试", Toast.LENGTH_SHORT).show()
-            }
+
+        val title = tv("超级用户服务未响应", 17f)
+        title.gravity = Gravity.CENTER_HORIZONTAL
+        title.typeface = Typeface.DEFAULT_BOLD
+        title.setPadding(0, 22, 0, 6)
+        card.addView(title)
+
+        val sub = tv("无法连接到 KernelSU 守护进程\n请稍后重试或重启设备", 13f, 0xFF7A8A99.toInt())
+        sub.gravity = Gravity.CENTER_HORIZONTAL
+        sub.setLineSpacing(6f, 1f)
+        card.addView(sub)
+
+        val btn = tv("重 试", 13f, 0xFF00FFC8.toInt())
+        btn.gravity = Gravity.CENTER
+        btn.setBackgroundResource(R.drawable.chip_bg)
+        btn.setPadding(50, 22, 50, 22)
+        val btnLp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        btnLp.gravity = Gravity.CENTER_HORIZONTAL
+        btnLp.topMargin = 26
+        btn.layoutParams = btnLp
+        btn.setOnClickListener {
+            Toast.makeText(this@KsuActivity, "连接超时，请稍后重试", Toast.LENGTH_SHORT).show()
         }
         card.addView(btn)
         content.addView(card)
@@ -193,39 +204,72 @@ class KsuActivity : AppCompatActivity() {
 
     private fun showModules() {
         clear()
-        // 修复：先把 count 算出来，避免嵌套 lambda 的 it 解析问题
-        val installedCount = modules.count { it.installed }
+
+        // 显式 for 循环，避免 Kotlin 集合扩展函数产生歧义
+        var installedCount = 0
+        var i = 0
+        while (i < modules.size) {
+            if (modules[i].installed) {
+                installedCount = installedCount + 1
+            }
+            i = i + 1
+        }
         val totalCount = modules.size
-        content.addView(tv("已安装模块 · $installedCount/$totalCount",
+
+        content.addView(tv("已安装模块 · " + installedCount + "/" + totalCount,
             11f, 0xFF5A6A78.toInt()))
 
-        modules.forEachIndexed { idx, m ->
-            val card = createCard()
-            card.addView(tv(m.name, 15f).apply { typeface = Typeface.DEFAULT_BOLD })
+        var idx = 0
+        while (idx < modules.size) {
+            val m = modules[idx]
+            val card = createCard(false)
+
+            val nameTv = tv(m.name, 15f)
+            nameTv.typeface = Typeface.DEFAULT_BOLD
+            card.addView(nameTv)
             card.addView(tv(m.desc, 12.5f, 0xFF7A8A99.toInt()))
-            card.addView(tv("作者：${m.author}", 11f, 0xFF4A5A68.toInt()))
-            val installBtn = tv(if (m.installed) "已安装" else "安 装",
-                if (m.installed) 0xFF5A6A78.toInt() else 0xFF00FFC8.toInt()).apply {
-                setBackgroundResource(if (m.installed) R.drawable.chip_bg_dim else R.drawable.chip_bg)
-                setPadding(46, 20, 46, 20)
-                val lp = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { topMargin = 20 }
-                layoutParams = lp
-                if (!m.installed) setOnClickListener { install(idx) }
+            card.addView(tv("作者：" + m.author, 11f, 0xFF4A5A68.toInt()))
+
+            val btnLabel: String
+            val btnColor: Int
+            if (m.installed) {
+                btnLabel = "已安装"
+                btnColor = 0xFF5A6A78.toInt()
+            } else {
+                btnLabel = "安 装"
+                btnColor = 0xFF00FFC8.toInt()
             }
+
+            val installBtn = tv(btnLabel, 13f, btnColor)
+            installBtn.setBackgroundResource(
+                if (m.installed) R.drawable.chip_bg_dim else R.drawable.chip_bg
+            )
+            installBtn.setPadding(46, 20, 46, 20)
+            val btnLp = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            btnLp.topMargin = 20
+            installBtn.layoutParams = btnLp
+
+            if (!m.installed) {
+                val capturedIdx = idx
+                installBtn.setOnClickListener { install(capturedIdx) }
+            }
+
             card.addView(installBtn)
             content.addView(card)
+
+            idx = idx + 1
         }
     }
 
     private fun install(idx: Int) {
         val m = modules[idx]
-        Toast.makeText(this, "正在安装 ${m.name} …", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "正在安装 " + m.name + " …", Toast.LENGTH_SHORT).show()
         content.postDelayed({
             modules[idx] = m.copy(installed = true)
-            Toast.makeText(this, "${m.name} 安装成功", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, m.name + " 安装成功", Toast.LENGTH_SHORT).show()
             showModules()
         }, 1400)
     }
@@ -233,12 +277,15 @@ class KsuActivity : AppCompatActivity() {
     private fun showSettings() {
         clear()
         content.addView(tv("高级功能 · 20 项", 11f, 0xFF5A6A78.toInt()))
-        features.forEach { feature ->
-            val card = createCard()
-            val row = LinearLayout(this).apply {
-                orientation = LinearLayout.HORIZONTAL
-                gravity = Gravity.CENTER_VERTICAL
-            }
+
+        var i = 0
+        while (i < features.size) {
+            val feature = features[i]
+            val card = createCard(false)
+            val row = LinearLayout(this)
+            row.orientation = LinearLayout.HORIZONTAL
+            row.gravity = Gravity.CENTER_VERTICAL
+
             val label = tv(feature, 14f)
             label.layoutParams = LinearLayout.LayoutParams(
                 0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
@@ -246,16 +293,19 @@ class KsuActivity : AppCompatActivity() {
             label.setPadding(0, 0, 0, 0)
             row.addView(label)
 
-            val sw = Switch(this).apply {
-                isChecked = false
-                setOnCheckedChangeListener { _, b ->
-                    Toast.makeText(this@KsuActivity,
-                        "$feature 已${if (b) "开启" else "关闭"}", Toast.LENGTH_SHORT).show()
-                }
+            val sw = Switch(this)
+            sw.isChecked = false
+            sw.setOnCheckedChangeListener { _, b ->
+                val state = if (b) "开启" else "关闭"
+                Toast.makeText(this@KsuActivity, feature + " 已" + state,
+                    Toast.LENGTH_SHORT).show()
             }
             row.addView(sw)
+
             card.addView(row)
             content.addView(card)
+
+            i = i + 1
         }
     }
 
