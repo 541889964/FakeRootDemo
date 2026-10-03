@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#05070A">
+
+    <View android:id="@+id/drop1"
+        android:layout_width="420dp" android:layout_height="420dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="-110dp" android:layout_marginTop="20dp"
+        android:background="@drawable/liquid_green"/>
+
+    <View android:id="@+id/drop2"
+        android:layout_width="380dp" android:layout_height="380dp"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="-90dp" android:layout_marginTop="180dp"
+        android:background="@drawable/liquid_blue"/>
+
+    <View android:id="@+id/drop3"
+        android:layout_width="400dp" android:layout_height="400dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="-70dp" android:layout_marginBottom="80dp"
+        android:background="@drawable/liquid_purple"/>
+
+    <View android:id="@+id/drop4"
+        android:layout_width="360dp" android:layout_height="360dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="-80dp" android:layout_marginBottom="20dp"
+        android:background="@drawable/liquid_cyan"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:paddingBottom="22dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="临时提权工具"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.18"
+            android:shadowColor="#AA00FFC8"
+            android:shadowDx="0" android:shadowDy="0" android:shadowRadius="24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="L I Q U I D   R O O T   E N G I N E"
+            android:textColor="#66FFFFFF"
+            android:textSize="9sp"
+            android:letterSpacing="0.42"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <View android:id="@+id/pulse1"
+                android:layout_width="160dp" android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:background="@drawable/pulse_ring_outer"/>
+
+            <View android:id="@+id/pulse2"
+                android:layout_width="160dp" android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:background="@drawable/pulse_ring_outer"/>
+
+            <View android:id="@+id/pulse3"
+                android:layout_width="160dp" android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:background="@drawable/pulse_ring_outer"/>
+
+            <View
+                android:layout_width="200dp" android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="@drawable/liquid_green"
+                android:alpha="0.4"/>
+
+            <TextView
+                android:id="@+id/coreBall"
+                android:layout_width="136dp" android:layout_height="136dp"
+                android:layout_gravity="center"
+                android:background="@drawable/core_ball"
+                android:gravity="center"
+                android:text="⚡"
+                android:textSize="52sp"
+                android:shadowColor="#FF00FFC8"
+                android:shadowDx="0" android:shadowDy="0" android:shadowRadius="28"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/glass_card"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <View
+                        android:id="@+id/statusDot"
+                        android:layout_width="8dp" android:layout_height="8dp"
+                        android:background="@drawable/status_dot"/>
+
+                    <TextView
+                        android:id="@+id/statusText"
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="准备就绪 · 等待指令"
+                        android:textColor="#CC00FFC8"
+                        android:textSize="13sp"
+                        android:letterSpacing="0.02"/>
+
+                    <TextView
+                        android:id="@+id/percentText"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="#8000FFC8"
+                        android:textSize="11sp"
+                        android:fontFamily="monospace"/>
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/barFill"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="14dp"
+                    android:max="100"
+                    android:progressTint="#00FFC8"
+                    android:progressBackgroundTint="#22FFFFFF"/>
+
+                <View
+                    android:layout_width="match_parent" android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/divider"/>
+
+                <ScrollView
+                    android:id="@+id/logBoxScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="112dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/log_panel_bg"
+                    android:padding="10dp"
+                    android:scrollbars="none">
+
+                    <TextView
+                        android:id="@+id/logBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="#90FFFFFF"
+                        android:textSize="10sp"
+                        android:lineSpacingExtra="2dp"/>
+                </ScrollView>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/startBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:text="开 始 提 权"
+                android:textColor="#FFFFFFFF"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:letterSpacing="0.28"
+                android:stateListAnimator="@null"
+                android:background="@drawable/glass_button"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/splashOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#05070A"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="200dp" android:layout_height="200dp">
+
+            <View
+                android:layout_width="200dp" android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="@drawable/liquid_green"
+                android:alpha="0.5"/>
+
+            <TextView
+                android:id="@+id/splashIcon"
+                android:layout_width="150dp" android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:background="@drawable/core_ball"
+                android:gravity="center"
+                android:text="⚡"
+                android:textSize="60sp"
+                android:shadowColor="#FF00FFC8"
+                android:shadowDx="0" android:shadowDy="0" android:shadowRadius="32"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/splashTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="临时提权工具"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.22"
+            android:shadowColor="#AA00FFC8"
+            android:shadowDx="0" android:shadowDy="0" android:shadowRadius="20"/>
+
+        <TextView
+            android:id="@+id/splashSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Initializing liquid engine…"
+            android:textColor="#66FFFFFF"
+            android:textSize="11sp"
+            android:letterSpacing="0.28"/>
+    </LinearLayout>
+</FrameLayout>
